@@ -1,0 +1,18 @@
+pragma solidity >=0.4.0 <0.7.0;
+
+contract swearJar {
+    uint badWords;
+
+    function Insults_Today(uint x) public payable {
+        badWords = x;
+    }
+
+    function My_Total_Insults() public view returns (uint) {
+        return badWords;
+    }
+  
+    function What_Did_Swearing_Cost_Me() public view returns (uint256) {
+        return address(this).balance;
+    }
+  
+}
