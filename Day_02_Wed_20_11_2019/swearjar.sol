@@ -21,11 +21,9 @@ contract swearJar {
     }
     
     //this function retrieves a list of addresses from swearAccounts
-    function getSwearAccounts()  public view returns (address[]){
+    function getSwearAccounts()  public view returns (address[] memory){
         return  swearAccounts;
     }
-    
-    
     
     uint badWords;
   
