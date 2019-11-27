@@ -27,16 +27,14 @@ contract swearJar {
     
     uint badWords;
   
-  //event idea: something that increases badwords count. 
-  //No idea what to do with mapping though
+  event swearIncrease(uint badWords);
+  
 
     function Insults_Today(uint x) public payable {
       //this is the function that let users decide what their fine should be for swearing
-      if( x > 1) { //Attemt at error handling with if/else
-      badWords = x; 
-      } else{
-      badWords ++;
-      }
+      require( x > 1, "Cant insert less than 1 full insult");
+      emit swearIncrease(badWords);
+      badWords += x;
     }
 
     function My_Total_Insults() public view returns (uint) {
