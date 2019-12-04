@@ -32,7 +32,7 @@ contract swearJar {
 
     function Insults_Today(uint x) public payable {
       //this is the function that let users decide what their fine should be for swearing
-      require( x > 1, "Cant insert less than 1 full insult");
+      require( x >= 1, "Cant insert less than 1 full insult");
       emit swearIncrease(badWords);
       badWords += x;
     }
