@@ -6,6 +6,7 @@ contract RegisterHours {
         uint date;        // store the date in an integer format (like now)
         uint workedhours; // hours is a reserved variable in Solidity
     }
+    event pushedList(address);
    mapping(address => RegHour) public RegisteredHours; // store the worked hours for the different users of the contract
    address payable[] public List; // store the address in an array to be able to find the for the payout
                                   // must be payable, to be able to use it directly in the payout function
@@ -19,8 +20,7 @@ contract RegisterHours {
   
   function StoreHours(uint date, uint workedhours) public {
     RegisteredHours[msg.sender] = RegHour(date,workedhours);
-    emit List.push(msg.sender);
-    console.log(msg.sender);
+    emit event List.push(msg.sender);
   }
   
   function Payout() public { // payout the hours that everyone has worked
