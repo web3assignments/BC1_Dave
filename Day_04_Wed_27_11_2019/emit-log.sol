@@ -20,7 +20,7 @@ contract RegisterHours {
   
   function StoreHours(uint date, uint workedhours) public {
     RegisteredHours[msg.sender] = RegHour(date,workedhours);
-    emit event List.push(msg.sender);
+    emit pushedList(msg.sender);
   }
   
   function Payout() public { // payout the hours that everyone has worked
