@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Ethereum webviewer</title>
+    <!Titelbar>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <!Heb nog geen CSS>
+</head>
+
+<body>
+    <h1>Ethereum transaction info</h1>
+    <h2>Feedback G. Persoon verwerkt op 29-01-2020</h2>
+    <br>Vergelijking maken met data op <a href="https://etherscan.io/blocks" target="_blank">Etherscan</a>
+
+    <div class="box">
+        <pre id="log" style="width:100%;height:200px"></pre>
+    </div>
+
+    <script>
+        function log(logstr) {
+            document.getElementById("log").innerHTML += logstr + "\n";
+        }
+
+        async function clientVersion() {
+            const request = JSON.stringify({
+                "jsonrpc": "2.0",
+                "method": "web3_clientVersion",
+                "params": [],
+                "id": 67
+            });
+            log(`Versturen van commando voor info van Web3 clientversie: ${request}`);
+
+            const rawResponse = await fetch('https://mainnet.infura.io', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: request
+            });
+            const content = await rawResponse.json();
+            log(`Ontvangen rawResponse van clientVersion(): ${JSON.stringify(content)}`);
+        }
+        async function getBlockNumber() {
+            const request = JSON.stringify({
+                "jsonrpc": "2.0",
+                "method": "eth_blockNumber",
+                "params": [],
+                "id": 67
+            });
+            log(`Versturen van verzoek tot aantal blocknummers met dit commando: ${request}`);
+            const rawResponse = await fetch('https://mainnet.infura.io', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: request
+            });
+            const content = await rawResponse.json();
+            log(`Ontvangen rawResponse van getBlockNumber(): ${JSON.stringify(content)}`);
+            log(`Het huidige aantal blocknummers zijn: ${parseInt(content.result)}`);
+        }
+
+        async function getLatestTransaction() {
+            const request = JSON.stringify({
+                "jsonrpc": "2.0",
+                "method": "eth_getTransactionByBlockNumberAndIndex",
+                "params": ["latest", "0x0"],
+                "id": 67
+            });
+            log(`De laatste transactie is: ${request}`);
+
+            const rawResponse = await fetch('https://mainnet.infura.io', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: request
+            });
+            const content = await rawResponse.json();
+            log(`Ontvangen rawResponse van getLatestTransaction(): ${JSON.stringify(content)}`);
+            log(`Informatie over de laatste transactie: = ${JSON.stringify(content.result)}`);
+        }
+        clientVersion();
+        getBlockNumber();
+        getLatestTransaction();
+    </script>
+</body>
+<html>
