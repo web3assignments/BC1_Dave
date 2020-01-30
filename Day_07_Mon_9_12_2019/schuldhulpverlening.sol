@@ -13,6 +13,7 @@ contract schuldhulpverlening is usingProvable {
     uint priceOfUrl = 1;
     bool geschiktVoorSchuldHulpVerlening;
     bool krijgtSchuldHulpVerlening;
+    string public temp;
     
     modifier schuldHulpVerlenerOnly() {
     require(msg.sender == schuldHulpVerlener);
@@ -67,6 +68,10 @@ contract schuldhulpverlening is usingProvable {
             "please add some ETH to cover for the query fee");
        provable_query("URL", 
             "json(http://worldtimeapi.org/api/timezone/Europe/Amsterdam).datetime");
+   }
+      function __callback(bytes32 myid, string memory result ) public {
+       if (msg.sender != provable_cbAddress()) revert();
+       temp = result;
    }
 }
 
