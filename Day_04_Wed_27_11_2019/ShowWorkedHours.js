@@ -16,8 +16,8 @@ const TestPayABI = [{
 async function f() {
     const TestPayaddress = "0x0060f37cdb9e045F4017BfA5d26A73A0F0601Fd2"
     const ContractTestPay = new web3.eth.Contract(TestPayABI, TestPayaddress);
-    var result = await ContractTestPay.methods.ContractBalance().call();
-    console.log(`ContractBalance shows ${Web3.utils.fromWei(result)} ether`);
+    var result = await ContractTestPay.methods.Balance().call();
+    console.log(`Balance shows ${Web3.utils.fromWei(result)} ether`);
     var x = Web3.utils.fromWei(await web3.eth.getBalance(TestPayaddress), 'ether');
     console.log(`TestPayaddress ${TestPayaddress} has ${x} ether`);
 }
