@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="https://web3examples.com/lib/web3-browserify.js"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Show getNow() Function of WorkedHours</title>
+    <h1>Show getNow() Function of WorkedHours</h1>
+    <h1>Feedback G.Persoon 29-01-2020</h1>
+    <link rel="stylesheet" type="text/css" href="css/styles.css">
+</head>
+
+<body>
+    <section>
+        <h2>Show me the getNow()</h2>
+        <pre id="js-output" style="width:100%;height:200px"></pre>
+        <button id="button1" onclick="async function f()"> getNow()</button>
+    </section>
+</body>
+<script>
+    function log(logstr) {
+        document.getElementById("js-output").innerHTML += logstr + "\n";
+    }
+    const contractAddress = "0xC786cd606FC62afB1e2Ff9FcA05ba87ac2d6804B";
+    const contractABI = [{
+        "anonymous": false,
+        "inputs": [{
+            "indexed": false,
+            "internalType": "address",
+            "name": "",
+            "type": "address"
+        }],
+        "name": "pushedList",
+        "type": "event"
+    }, {
+        "payable": true,
+        "stateMutability": "payable",
+        "type": "fallback"
+    }, {
+        "constant": true,
+        "inputs": [],
+        "name": "Balance",
+        "outputs": [{
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256"
+        }],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+    }, {
+        "constant": true,
+        "inputs": [],
+        "name": "GetNow",
+        "outputs": [{
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256"
+        }],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+    }, {
+        "constant": true,
+        "inputs": [{
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256"
+        }],
+        "name": "List",
+        "outputs": [{
+            "internalType": "address payable",
+            "name": "",
+            "type": "address"
+        }],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+    }, {
+        "constant": true,
+        "inputs": [],
+        "name": "NrOfAddress",
+        "outputs": [{
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256"
+        }],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+    }, {
+        "constant": false,
+        "inputs": [],
+        "name": "Payout",
+        "outputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function"
+    }, {
+        "constant": true,
+        "inputs": [{
+            "internalType": "address",
+            "name": "",
+            "type": "address"
+        }],
+        "name": "RegisteredHours",
+        "outputs": [{
+            "internalType": "uint256",
+            "name": "date",
+            "type": "uint256"
+        }, {
+            "internalType": "uint256",
+            "name": "workedhours",
+            "type": "uint256"
+        }],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+    }, {
+        "constant": false,
+        "inputs": [{
+            "internalType": "uint256",
+            "name": "date",
+            "type": "uint256"
+        }, {
+            "internalType": "uint256",
+            "name": "workedhours",
+            "type": "uint256"
+        }],
+        "name": "StoreHours",
+        "outputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function"
+    }];
+
+    async function f() {
+        web3 = new Web3(Web3.givenProvider); // provider from metamask   
+        const addressGN = "0xC786cd606FC62afB1e2Ff9FcA05ba87ac2d6804B";
+        const getGetNow = new web3.eth.Contract(contractABI, addressGN);
+        var result = await getGetNow.methods.getNow().call();
+        console.log(`getNow shows ${Web3.utils.fromWei(result)} ether`);
+        var x = Web3.utils.fromWei(await web3.eth.getBalance(addressGN), 'ether');
+        console.log(`addressGN ${addressGN} has ${x} ether`);
+    }
+</script>
+
+</html>
