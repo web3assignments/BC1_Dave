@@ -2,6 +2,7 @@
 <html>
 
 <head>
+    <script src="https://web3examples.com/lib/web3-browserify.js"></script>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -14,7 +15,8 @@
 <body>
     <section>
         <h2>Show me the getNow()</h2>
-        <button id="button1" onclick="f()"> getNow()</button>
+        <pre id="js-output" style="width:100%;height:200px"></pre>
+        <button id="button1" onclick="async function f()"> getNow()</button>
     </section>
 </body>
 <script>
@@ -134,10 +136,11 @@
         "type": "function"
     }];
 
-    function f() {
+    async function f() {
+        web3 = new Web3(Web3.givenProvider); // provider from metamask   
         const addressGN = "0xC786cd606FC62afB1e2Ff9FcA05ba87ac2d6804B";
-        const getGetNow = new web3.eth.Contract(TestPayABI, addressGN);
-        var result = await ContractTestPay.methods.getNow().call();
+        const getGetNow = new web3.eth.Contract(contractABI, addressGN);
+        var result = await getGetNow.methods.getNow().call();
         console.log(`getNow shows ${Web3.utils.fromWei(result)} ether`);
         var x = Web3.utils.fromWei(await web3.eth.getBalance(addressGN), 'ether');
         console.log(`addressGN ${addressGN} has ${x} ether`);
