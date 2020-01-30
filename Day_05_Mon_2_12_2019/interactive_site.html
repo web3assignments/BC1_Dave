@@ -140,7 +140,7 @@
         web3 = new Web3(Web3.givenProvider); // provider from metamask   
         const addressGN = "0xC786cd606FC62afB1e2Ff9FcA05ba87ac2d6804B";
         const getGetNow = new web3.eth.Contract(contractABI, addressGN);
-        var result = await getGetNow.methods.getNow().call();
+        var result = await getGetNow.getNow().call();
         console.log(`getNow shows ${Web3.utils.fromWei(result)} ether`);
         var x = Web3.utils.fromWei(await web3.eth.getBalance(addressGN), 'ether');
         console.log(`addressGN ${addressGN} has ${x} ether`);
