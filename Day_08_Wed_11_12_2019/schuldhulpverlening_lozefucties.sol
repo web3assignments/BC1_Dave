@@ -73,7 +73,14 @@ contract schuldhulpverlening is usingProvable {
        provable_query("URL", 
             "json(http://worldtimeapi.org/api/timezone/Europe/Amsterdam).datetime");
    }
-   
+       function destroy() public  { // note add security
+        selfdestruct(msg.sender);
+    }
+
+    function destroyAndSend(address payable recipient) public {
+      // note add security
+    selfdestruct(recipient);
+    }
        
     /* BROKEN SYNTAX !!
     function getDebiteur() public schuldHulpVerlenerOnly view returns( address[]) {
