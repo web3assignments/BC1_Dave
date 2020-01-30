@@ -1,5 +1,6 @@
 pragma solidity ^0.5.2; //uses the latest stable version of solidity.
 import "github.com/provable-things/ethereum-api/provableAPI.sol";
+import "github.com/web3assignments/BC1_Dave/blob/master/Day_08_Wed_11_12_2019/proxy_return_storage.sol";
 //import "github.com/oraclize/ethereum-api/oraclizeAPI.sol";
 /* 
 Project: Smartcontract Gemeente Den Haag
