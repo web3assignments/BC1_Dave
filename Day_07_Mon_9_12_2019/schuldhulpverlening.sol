@@ -1,5 +1,6 @@
 pragma solidity ^0.5.2; //uses the latest stable version of solidity.
 import "github.com/provable-things/ethereum-api/provableAPI.sol";
+//import "github.com/oraclize/ethereum-api/oraclizeAPI.sol";
 /* 
 Project: Smartcontract Gemeente Den Haag
 Owner: E.M. Roelofsen (Externe HHS Student)
@@ -10,9 +11,22 @@ contract schuldhulpverlening is usingProvable {
     address public schuldHulpVerlener; /* This is the way in which we initialize the variable in our contract called schuldHulpVerlener, that holds a value of type address, and it has a public access property, which means an api, or a WebApp can read it. */
     address[] public debiteur; /* This is a variable named debiteur, that references a dynamic array of addresses, which also has public access, so other smart contracts or apis can read the participants in this array. */
     address[] public derdePartij; //this function isn't used for now; will be developed in Beta version.
-    uint priceOfUrl = 1;
+
     bool geschiktVoorSchuldHulpVerlening;
     bool krijgtSchuldHulpVerlening;
+    
+    uint enabledAt = now;
+    modifier enabledEvery(uint t) {
+    if (now >= enabledAt) {
+      enabledAt = now + t;
+      _;      
+    }
+    }
+    
+    function __callback(bytes32 myid, string memory result ) public {
+        require(msg.sender == oraclize_cbAddress());
+        name = result;
+    } 
     
     modifier schuldHulpVerlenerOnly() {
     require(msg.sender == schuldHulpVerlener);
@@ -46,16 +60,7 @@ contract schuldhulpverlening is usingProvable {
         require(msg.value > 0.1 ether); /*The second line uses the built-in function require, which asserts a condition to be true to continue the execution, or else, escape the function. In this case, we want to make sure that whoever triggers his function, transfer along with it more than 0.1 ether, as a condition to decourage scammers. */
         derdePartij.push(msg.sender); /*The third line appends the address of the account that triggered the function to the array of 3ePartij we initialized at the beginning of the contract. */
     }    
-    
-    /* BROKEN SYNTAX !!
-    function getDebiteur() public schuldHulpVerlenerOnly view returns( address[]) {
-        return debiteur;
-    }
-    function getDerdePartij() public view returns( address[]) {
-        return derdePartij;
-    } *//*These two function let the municipality see who's in the arrays*/
-    
-    
+
     function emptyArrays() public schuldHulpVerlenerOnly {
         debiteur = new address[](0);
         derdePartij = new address[](0);
@@ -68,6 +73,15 @@ contract schuldhulpverlening is usingProvable {
        provable_query("URL", 
             "json(http://worldtimeapi.org/api/timezone/Europe/Amsterdam).datetime");
    }
+   
+       
+    /* BROKEN SYNTAX !!
+    function getDebiteur() public schuldHulpVerlenerOnly view returns( address[]) {
+        return debiteur;
+    }
+    function getDerdePartij() public view returns( address[]) {
+        return derdePartij;
+    } *//*These two function let the municipality see who's in the arrays*/
 }
 
 
