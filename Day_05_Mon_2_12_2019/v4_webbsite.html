@@ -7,12 +7,40 @@
 </head>
 
 <body>
-    <h1>Get the current amount of funds in Casino Bank</h1>
+    <h1>GThis page is gonna show some funky stuff.</h1>
     <div class="buttonHolder">
-        <input type="button" class="button" value="Get funds" onclick="f();">
+        <input type="button" class="button" value="Show me who deployed the contract" onclick="f();">
     </div>
     <pre id="log"></pre>
     <script src="script.js"></script>
+    <br>
+    <h1>This is if your account or network has changed</h1>
+    <script type="text/javascript">
+        function log(logstr) {
+            document.getElementById("log").innerHTML += logstr + "\n";
+        }
+        async function f() {
+            web3 = new Web3(Web3.givenProvider); // provider from metamask         
+            web3.extend({ // web3.eth.requestAccounts() isn't available (yet)
+                methods: [{
+                    name: 'eth_requestAccounts',
+                    call: 'eth_requestAccounts',
+                    params: 0
+                }]
+            });
+            log(`Version of web3.js: ${web3.version}`);
+            var result = await web3.eth_requestAccounts().catch(x => log(x.message));
+            log(`Value from eth_requestAccounts: ${JSON.stringify(result)}`);
+            var acts = await web3.eth.getAccounts().catch(log);
+            log(`Here are the accounts: ${JSON.stringify(acts)}`);
+
+            ethereum.on('accountsChanged', newacts => {
+                acts = newacts;
+                log(`We have new accounts: ${JSON.stringify(acts)}`);
+            })
+        }
+        f();
+    </script>
 </body>
 
 </html>
