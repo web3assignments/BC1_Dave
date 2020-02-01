@@ -2,22 +2,17 @@
 <html>
 
 <head>
-    <script src="web3-browserify.js"></script>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://web3examples.com/lib/web3-browserify.js"></script>
 </head>
 
 <body>
-    <h1>web3.version</h1>
-    <pre id="log" style="width:100%;height:200px"></pre>
-    <script type="text/javascript">
-        function log(logstr) {
-            document.getElementById("log").innerHTML += logstr + "\n";
-        }
-        async function f() {
-            web3 = new Web3();
-            log(`Version of web3.js: ${web3.version}`);
-        }
-        f();
-    </script>
+    <h1>Get the current amount of funds in Casino Bank</h1>
+    <div class="buttonHolder">
+        <input type="button" class="button" value="Get funds" onclick="f();">
+    </div>
+    <pre id="log"></pre>
+    <script src="script.js"></script>
 </body>
 
 </html>
