@@ -19,7 +19,7 @@
         function log(logstr) {
             document.getElementById("log").innerHTML += logstr + "\n";
         }
-        async function f() {
+        async function f2() {
             web3 = new Web3(Web3.givenProvider); // provider from metamask         
             web3.extend({ // web3.eth.requestAccounts() isn't available (yet)
                 methods: [{
@@ -39,7 +39,7 @@
                 log(`We have new accounts: ${JSON.stringify(acts)}`);
             })
         }
-        f();
+        f2();
     </script>
 </body>
 
