@@ -22,13 +22,12 @@ async function foo() {
     })
 }
 
-const getBankBalanceABI = [{
+const myTotalInsultsABI = [{
     "constant": true,
     "inputs": [],
-    "name": "getBankBalance",
+    "name": "My_Total_Insults",
     "outputs": [{
-        "internalType": "uint256",
-        "name": "ret",
+        "name": "",
         "type": "uint256"
     }],
     "payable": false,
@@ -36,10 +35,11 @@ const getBankBalanceABI = [{
     "type": "function"
 }];
 
-const CasinoV2Address = "0x8b173E32DbE8DA7746ef1a61FDb214b5Fa6F7DE4";
-const ContractCasinoV2 = new web3.eth.Contract(getBankBalanceABI, CasinoV2Address);
+const insultAddress = "0x36bF8bB98fEa2C40b98df6C648C88CeF4B3FD1aB";
+const myTotalInsultsV2 = new web3.eth.Contract(myTotalInsultsABI, insultAddress);
 async function f() {
-    var result = await ContractCasinoV2.methods.getBankBalance().call();
-    log(`There is ${result} Wei in the bank`);
+    var result = await myTotalInsultsV2.methods.My_Total_Insults().call();
+    log(`There are ${result} insults`);
+    log('This has been published by 0x9c10f03a4B532Ef8928f4f73F92b6c4F0421A8aF');
 }
 foo();
