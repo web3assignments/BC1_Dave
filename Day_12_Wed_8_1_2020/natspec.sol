@@ -23,39 +23,39 @@ contract schuldHulpVerlening {
     _;} /*This function checks if changes were made by the municipality, discards other changes*/
    
     constructor() public {
-        schuldHulpVerlener = msg.sender;
         ///@param schuldHulpVerlener is the one who initialized the contract. (assumption GDH) 
+        schuldHulpVerlener = msg.sender;
     }  /* In this step, we created a constructor, or an “initializer” for our contract, once it is deployed in the ethereum blockchain.Every change of state of the Global Ethereum Virtual Machine (EVM), is triggered by a transaction. A transaction has a sender and a recipient. And each of them can be an Ethereum address or a smart contract. In Solidity the “msg” object describes the attributes of the transaction. So by accessing its properties, we can find out information about its state. */ 
     
     function boolGeschikt() public payable schuldHulpVerlenerOnly{
+        ///@param geschiktVoorSchuldHulpVerlening is a param that check if the debtor is suited for help program it's just a truefalse boolean
         if(msg.value == 1){
         geschiktVoorSchuldHulpVerlening == true; } else geschiktVoorSchuldHulpVerlening == false;
-        ///@param geschiktVoorSchuldHulpVerlening is a param that check if the debtor is suited for help program it's just a truefalse boolean
     } /*This function allows the municipality to change the value of booleans by paying ether*/
     
     function boolKrijgt() public payable schuldHulpVerlenerOnly {
+        ///@param krijgtSchuldHulpVerlening is a param that check if the debtor is suited for help program it's just a truefalse boolean
         require(geschiktVoorSchuldHulpVerlening == true);
         if(msg.value == 1){
         krijgtSchuldHulpVerlening == true; } else krijgtSchuldHulpVerlening == false;
-        ///@param krijgtSchuldHulpVerlening is a param that check if the debtor is suited for help program it's just a truefalse boolean
     } /*This function allows the municipality to change the value of booleans by paying ether*/
    
     
     
     function participantInSchuldHulpVerlening() public payable { /*The function is defined with 2 properties: a) public, which makes it publicly accessible. b) payable, which allows the function to be triggered by a transaction that sends ether along with it. The ether will be used to fund the smartcontract, and finally, reward the miners on the blockchain.*/
+        ///@param require krijgtSchuldHulpVerlening checks wether or not the debtor is allowed to use this function
+        ///@param require msg.value checks if the debtor is willingly to participate by actually pay something
         require(krijgtSchuldHulpVerlening == true); /*The first require function checks if the Debiteur is suited for help*/
         require(msg.value > 0.1 ether); /*The third line uses the built-in function require, which asserts a condition to be true to continue the execution, or else, escape the function. In this case, we want to make sure that whoever triggers his function, transfer along with it more than 0.1 ether, as a condition to decourage scammers. */
         debiteur.push(msg.sender); /*The third line appends the address of the account that triggered the function to the array of debiteur we initialized at the beginning of the contract. */
-        ///@param require krijgtSchuldHulpVerlening checks wether or not the debtor is allowed to use this function
-        ///@param require msg.value checks if the debtor is willingly to participate by actually pay something
     }
     
     
     function participantderdePartij() public payable { /*The function is defined with 2 properties: a) public, which makes it publicly accessible. b) payable, which allows the function to be triggered by a transaction that sends ether along with it. The ether will be used to fund the smartcontract, and finally, reward the miners on the blockchain.*/
+         ///@param require check if the third party that wants to participate actually pays something
+        ///@param derdePartij.push adds the third partys address in an array
         require(msg.value > 0.1 ether); /*The second line uses the built-in function require, which asserts a condition to be true to continue the execution, or else, escape the function. In this case, we want to make sure that whoever triggers his function, transfer along with it more than 0.1 ether, as a condition to decourage scammers. */
         derdePartij.push(msg.sender); /*The third line appends the address of the account that triggered the function to the array of 3ePartij we initialized at the beginning of the contract. */
-        ///@param require check if the third party that wants to participate actually pays something
-        ///@param derdePartij.push adds the third partys address in an array
     }    
     
     /* BROKEN SYNTAX !!
