@@ -34,32 +34,6 @@
             var acts = await web3.eth.getAccounts().catch(log);
             log(`Here are the accounts: ${JSON.stringify(acts)}`);
 
-            ethereum.on('accountsChanged', newacts => {
-                acts = newacts;
-                log(`We have new accounts: ${JSON.stringify(acts)}`);
-            })
-        }
-        f2();
-    </script>
-    <script type="text/javascript">
-        function log(logstr) {
-            document.getElementById("log").innerHTML += logstr + "\n";
-        }
-        async function f3() {
-            web3 = new Web3(Web3.givenProvider); // provider from metamask         
-            web3.extend({ // web3.eth.requestAccounts() isn't available (yet)
-                methods: [{
-                    name: 'eth_requestAccounts',
-                    call: 'eth_requestAccounts',
-                    params: 0
-                }]
-            });
-            log(`Version of web3.js: ${web3.version}`);
-            var result = await web3.eth_requestAccounts().catch(x => log(x.message));
-            log(`Value from eth_requestAccounts: ${JSON.stringify(result)}`);
-            var acts = await web3.eth.getAccounts().catch(log);
-            log(`Here are the accounts: ${JSON.stringify(acts)}`);
-
             var chainId = await web3.eth.getChainId();
             log(`We are on chain: ${JSON.stringify(chainId)}`);
             ethereum.on('chainChanged', newChain);
@@ -71,8 +45,9 @@
                 log(`We have a new chain: ${chainId}`);
             }
         }
-        f3();
+        f2();
     </script>
+
 </body>
 
 </html>
