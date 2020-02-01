@@ -1,4 +1,4 @@
-pragma solidity ^0.5.12;
+pragma solidity ^0.5.2;
 contract Proxy_Return_Storage {
     uint public result;
     function version1() external pure returns(string memory) {
