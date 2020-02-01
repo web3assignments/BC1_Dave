@@ -7,9 +7,9 @@
 </head>
 
 <body>
-    <h1>This page is gonna show some funky stuff.</h1>
+    <h1>This page is gonna show some funky stuff. We'll use swearjar.sol as example.</h1>
     <div class="buttonHolder">
-        <input type="button" class="button" value="Show me who deployed the contract" onclick="f();">
+        <input type="button" class="button" value="Show me what swearing cost me" onclick="f();">
     </div>
     <pre id="log"></pre>
     <script src="script.js"></script>
@@ -44,28 +44,6 @@
                 chainId = newchainId;
                 log(`We have a new chain: ${chainId}`);
             }
-            var dist = 100;
-            DistanceHHSaddress = "0x609F224c0c9405a1e7FD404114ca8A8606edC3a3"
-            DistanceHHSABI = [{
-                "constant": false,
-                "inputs": [{
-                    "name": "distance",
-                    "type": "uint256"
-                }],
-                "name": "StoreDistanceHHS",
-                "outputs": [],
-                "payable": false,
-                "stateMutability": "nonpayable",
-                "type": "function"
-            }];
-            const DistanceHHSContract = new web3.eth.Contract(DistanceHHSABI, DistanceHHSaddress);
-            log(`Storing distance to HHS: distance=${dist} (hex:${web3.utils.toHex(dist)})`);
-            x = await DistanceHHSContract.methods.StoreDistanceHHS(dist)
-                .send({
-                    from: acts[0]
-                }).catch((reason) => log(`Cannnot do transaction ${reason}`));
-            log(`Transaction hash: ${x.transactionHash}`);
-        }
         f2();
     </script>
 
