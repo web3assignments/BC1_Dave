@@ -29,14 +29,19 @@
                     params: 0
                 }]
             });
-                        const ens  = new ENS(web3.currentProvider);
+            const ens  = new ENS(web3.currentProvider);
             const name='daveroelofsen.eth';
             log(`Checking ${name}`);   
             var pr=ens.resolver(name);
             pr.instancePromise.catch(log); // trick to catch error
             var ResolverContract=await pr;
             if (ResolverContract)
-                log(`Address: ${await ResolverContract.addr()}`);  
+                log(`Address: ${await ResolverContract.addr()}`); 
+            var address=await web3.eth.ens.getAddress(name);
+                        log (`Address: ${address}`);          
+                        var reverse = await ens.reverse(address).name()
+            log(`Reverse: ${reverse}`);
+                
            
             
             log(`Version of web3.js: ${web3.version}`);            
