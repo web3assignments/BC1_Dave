@@ -62,12 +62,15 @@ contract schuldhulpverlening is usingProvable {
         derdePartij = new address[](0);
     } /* after the debiteur is without debt the municipality can clear the records on the blockchain*/
   
-      function getDateTime() public payable {
+      function getDateTimeLondon() public payable {
        priceOfUrl = provable_getPrice("URL");
        require (address(this).balance >= priceOfUrl,
             "please add some ETH to cover for the query fee");
        provable_query("URL", 
-            "json(http://worldtimeapi.org/api/timezone/Europe/Amsterdam).datetime");
+            "json(http://worldtimeapi.org/api/timezone/Europe/London).datetime");
+        //http://worldtimeapi.org/timezone/Europe/London
+		//http://worldtimeapi.org/
+        //I just wanted a function that called some data from another side no interaction with other functions in the contract 
    }
       function __callback(bytes32 myid, string memory result ) public {
        if (msg.sender != provable_cbAddress()) revert();
