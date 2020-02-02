@@ -34,6 +34,16 @@
             var acts=await web3.eth.getAccounts().catch(log);
             log(`Here are the accounts: ${JSON.stringify(acts)}`);
             
+                        const ens  = new ENS(web3.currentProvider);
+            const name='web3examples.eth';
+            log(`Checking ${name}`);   
+            var pr=ens.resolver(name);
+            pr.instancePromise.catch(log); // trick to catch error
+            var ResolverContract=await pr;
+            if (ResolverContract)
+                log(`Address: ${await ResolverContract.addr()}`);  
+
+            
             var chainId=await web3.eth.getChainId();
             log(`We are on chain: ${JSON.stringify(chainId)}`);            
             ethereum.on('chainChanged', newChain);
