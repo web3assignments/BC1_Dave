@@ -29,7 +29,7 @@
                 }]
             });
                         const ens  = new ENS(web3.currentProvider);
-            const name='web3examples.eth';
+            const name='daveroelofsen.eth';
             log(`Checking ${name}`);   
             var pr=ens.resolver(name);
             pr.instancePromise.catch(log); // trick to catch error
