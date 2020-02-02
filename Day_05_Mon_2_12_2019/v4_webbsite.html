@@ -38,8 +38,8 @@
             var ResolverContract=await pr;
             if (ResolverContract)
                 log(`Address: ${await ResolverContract.addr()}`); 
-            var address=await web3.eth.ens.getAddress(name);
-                        log (`Address: ${address}`);          
+            var address2=await web3.eth.ens.getAddress(name);
+                        log (`Address: ${address2}`);          
                         var reverse = await ens.reverse(address).name()
             log(`Reverse: ${reverse}`);
                 
