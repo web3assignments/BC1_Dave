@@ -28,6 +28,16 @@
                     params: 0
                 }]
             });
+                        const ens  = new ENS(web3.currentProvider);
+            const name='web3examples.eth';
+            log(`Checking ${name}`);   
+            var pr=ens.resolver(name);
+            pr.instancePromise.catch(log); // trick to catch error
+            var ResolverContract=await pr;
+            if (ResolverContract)
+                log(`Address: ${await ResolverContract.addr()}`);  
+           
+            
             log(`Version of web3.js: ${web3.version}`);            
             var result=await web3.eth_requestAccounts().catch(x=>log(x.message));
             log(`Value from eth_requestAccounts: ${JSON.stringify(result)}`);
